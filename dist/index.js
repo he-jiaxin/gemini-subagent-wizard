@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // index.ts
-import { intro, outro, text, select, multiselect, spinner, isCancel } from "@clack/prompts";
+import { intro, outro, text, select, multiselect, spinner, isCancel, note } from "@clack/prompts";
 import color from "picocolors";
 import * as fs from "fs";
 import * as path from "path";
@@ -15,6 +15,24 @@ var TOOL_GROUPS = {
   exec: ["run_shell_command"],
   other: ["google_web_search"]
 };
+function checkGeminiSettings() {
+  var _a;
+  const settingsPath = path.join(os.homedir(), ".gemini", "settings.json");
+  if (fs.existsSync(settingsPath)) {
+    try {
+      const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"));
+      const isEnabled = (_a = settings.experimental) == null ? void 0 : _a.enableAgents;
+      if (isEnabled !== true) {
+        console.log("\n");
+        note(
+          color.yellow("Subagents are not yet enabled in your Gemini CLI.\n") + color.dim("To fix this, add the following to ~/.gemini/settings.json:\n\n") + color.cyan('  "experimental": {\n    "enableAgents": true\n  }'),
+          "\u26A0\uFE0F  Configuration Required"
+        );
+      }
+    } catch (e) {
+    }
+  }
+}
 async function generateAgentContent(intent) {
   const s = spinner();
   s.start("Asking Gemini (via your CLI) to design your subagent");
@@ -50,7 +68,8 @@ function handleCancel(value) {
 }
 async function main() {
   console.clear();
-  intro(`${color.bgCyan(color.black(" Gemini Subagent Wizard "))} ${color.dim("v1.7")}`);
+  intro(`${color.bgCyan(color.black(" Gemini Subagent Wizard "))} ${color.dim("v1.8")}`);
+  checkGeminiSettings();
   const scope = await select({
     message: "Create new agent\n" + color.dim("Select agent scope"),
     options: [
