@@ -1,16 +1,10 @@
-Looking at your screenshot, your structure is perfect. You have the compiled `dist`, the source `index.ts`, and the `templates` folder ready for users to copy the slash command. 
-
-Here is the complete **README.md** formatted specifically for your GitHub repository. You can copy and paste this directly into your project.
-
----
-
-# 🪄 Gemini Subagent Wizard
+# Gemini Subagent Wizard
 
 **The fastest way to build, configure, and deploy specialist agents for the Gemini CLI.**
 
 Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** provides a beautiful, interactive TUI (Terminal User Interface) to draft complex agent personas using Gemini itself, select whitelisted tools, and save them exactly where the Gemini CLI expects to find them.
 
-## 🚀 Key Features
+## Key Features
 
 * **AI-Powered Drafting:** Tell the wizard what you need, and it uses Gemini to write a professional system prompt for your subagent.
 * **Safety Check:** Automatically verifies your `settings.json` to ensure experimental agents are enabled.
@@ -20,7 +14,7 @@ Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** 
 
 ---
 
-## 🛠️ Installation
+## Installation
 
 You don't even need to install it to start using it! Run the wizard instantly via `npx`:
 
@@ -36,7 +30,7 @@ npm install -g gemini-subagent
 
 ---
 
-## 💡 Usage
+## Usage
 
 ### 1. Standalone Mode
 Run the wizard from any terminal to prep your agents before starting a Gemini session:
@@ -59,7 +53,7 @@ To make it a permanent part of your Gemini CLI menu:
 
 ---
 
-## ⚙️ Development
+## Development
 
 If you want to contribute or build from source:
 
@@ -80,7 +74,7 @@ If you want to contribute or build from source:
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
 * **Node.js** v18+ 
 * **Gemini CLI** (`npm install -g @google/genai-cli`)
@@ -91,7 +85,7 @@ If you want to contribute or build from source:
     }
     ```
 
-## 📄 License
+## License
 ISC © 2026
 
 ---
