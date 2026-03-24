@@ -1,4 +1,4 @@
-# Gemini Subagent Wizard
+# Gemini CLI Subagent Wizard
 
 **The fastest way to build, configure, and deploy specialist agents for the Gemini CLI.**
 
