@@ -1,0 +1,26 @@
+{
+  "name": "gemini-agent-wizard",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.ts",
+  "bin": {
+    "gemini-wizard": "./node_modules/.bin/tsx index.ts"
+  },
+  "scripts": {
+    "dev": "tsx index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "An interactive subagent creator for the Gemini CLI",
+  "dependencies": {
+    "@clack/prompts": "^1.1.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}
