@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { intro, outro, text, select, multiselect, spinner, isCancel } from '@clack/prompts';
+import { intro, outro, text, select, multiselect, spinner, isCancel, note } from '@clack/prompts';
 import color from 'picocolors';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -16,6 +16,33 @@ const TOOL_GROUPS = {
     exec: ['run_shell_command'],
     other: ['google_web_search']
 };
+
+/**
+ * Safety Check: Verifies if the user has enabled experimental agents 
+ * in their global Gemini CLI settings.
+ */
+function checkGeminiSettings() {
+    const settingsPath = path.join(os.homedir(), '.gemini', 'settings.json');
+    
+    if (fs.existsSync(settingsPath)) {
+        try {
+            const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
+            const isEnabled = settings.experimental?.enableAgents;
+
+            if (isEnabled !== true) {
+                console.log('\n');
+                note(
+                    color.yellow('Subagents are not yet enabled in your Gemini CLI.\n') +
+                    color.dim('To fix this, add the following to ~/.gemini/settings.json:\n\n') +
+                    color.cyan('  "experimental": {\n    "enableAgents": true\n  }'),
+                    '⚠️  Configuration Required'
+                );
+            }
+        } catch (e) {
+            // If settings.json is malformed or inaccessible, we continue silently
+        }
+    }
+}
 
 async function generateAgentContent(intent: string) {
     const s = spinner();
@@ -57,7 +84,10 @@ function handleCancel<T>(value: T | symbol | undefined): asserts value is T {
 
 async function main() {
     console.clear();
-    intro(`${color.bgCyan(color.black(' Gemini Subagent Wizard '))} ${color.dim('v1.7')}`);
+    intro(`${color.bgCyan(color.black(' Gemini Subagent Wizard '))} ${color.dim('v1.8')}`);
+
+    // RUN SAFETY CHECK
+    checkGeminiSettings();
 
     // STEP 1: SCOPE
     const scope = await select({
@@ -197,7 +227,7 @@ model: ${targetModel}
     
     const fullFileContent = frontmatter + agentData.system_prompt;
 
-    // RESPONSIVE PREVIEW (Native Console Log)
+    // RESPONSIVE PREVIEW
     console.log('\n' + color.cyan('--- Agent Preview (.md file) ---'));
     console.log(color.dim(fullFileContent));
     console.log(color.cyan('--------------------------------\n'));
