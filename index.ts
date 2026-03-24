@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { intro, outro, text, select, multiselect, spinner, isCancel, note } from '@clack/prompts';
+import { intro, outro, text, select, multiselect, spinner, isCancel } from '@clack/prompts';
 import color from 'picocolors';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -9,14 +9,12 @@ import { promisify } from 'util';
 
 const execFileAsync = promisify(execFile);
 
-// --- TOOL MAPPINGS ---
-// We map the high-level categories to the actual Gemini CLI tools
+// --- STRICT TOOL MAPPINGS ---
 const TOOL_GROUPS = {
-    read: ['read_file', 'read_many_files', 'list_directory', 'glob', 'grep_search'],
-    edit: ['write_file', 'replace'],
+    read: ['read_file', 'glob', 'grep_search'],
+    edit: ['write_file'],
     exec: ['run_shell_command'],
-    mcp: ['mcp_tools'],
-    other: ['google_web_search', 'web_fetch', 'save_memory', 'enter_plan_mode', 'write_todos']
+    other: ['google_web_search']
 };
 
 async function generateAgentContent(intent: string) {
@@ -59,7 +57,7 @@ function handleCancel<T>(value: T | symbol | undefined): asserts value is T {
 
 async function main() {
     console.clear();
-    intro(`${color.bgCyan(color.black(' Gemini Subagent Wizard '))} ${color.dim('v1.4')}`);
+    intro(`${color.bgCyan(color.black(' Gemini Subagent Wizard '))} ${color.dim('v1.7')}`);
 
     // STEP 1: SCOPE
     const scope = await select({
@@ -128,7 +126,7 @@ async function main() {
         };
     }
 
-    // STEP 3: TOOLS (Now matches the screenshot exactly)
+    // STEP 3: TOOLS
     let finalTools: string[] = [];
     
     const categoryChoices = await multiselect({
@@ -138,7 +136,6 @@ async function main() {
             { value: 'read', label: 'Read-only tools' },
             { value: 'edit', label: 'Edit tools' },
             { value: 'exec', label: 'Execution tools' },
-            { value: 'mcp', label: 'MCP tools' },
             { value: 'other', label: 'Other tools' },
             { value: 'advanced', label: color.dim('[ Show advanced options ]') }
         ],
@@ -146,46 +143,32 @@ async function main() {
     });
     handleCancel(categoryChoices);
 
-    // Process the tool selection logic
-    const choices = categoryChoices;
+    const choices = categoryChoices as string[];
 
     if (choices.includes('advanced')) {
-        // If they clicked Advanced, show the massive detailed list
         const advancedTools = await multiselect({
             message: color.dim('Advanced Tool Selection (Space to select, Enter to continue)'),
             options: [
                 { value: 'read_file', label: color.cyan('Read') + '  - read_file' },
-                { value: 'read_many_files', label: color.cyan('Read') + '  - read_many_files' },
-                { value: 'list_directory', label: color.cyan('Read') + '  - list_directory' },
                 { value: 'glob', label: color.cyan('Read') + '  - glob' },
                 { value: 'grep_search', label: color.cyan('Read') + '  - grep_search' },
                 { value: 'write_file', label: color.yellow('Edit') + '  - write_file' },
-                { value: 'replace', label: color.yellow('Edit') + '  - replace' },
                 { value: 'run_shell_command', label: color.red('Exec') + '  - run_shell_command' },
                 { value: 'google_web_search', label: color.blue('Web ') + '  - google_web_search' },
-                { value: 'web_fetch', label: color.blue('Web ') + '  - web_fetch' },
-                { value: 'mcp_tools', label: color.green('MCP ') + '  - mcp_tools' },
-                { value: 'save_memory', label: color.magenta('Mem ') + '  - save_memory' },
-                { value: 'enter_plan_mode', label: color.magenta('Mem ') + '  - enter_plan_mode' },
-                { value: 'write_todos', label: color.magenta('Mem ') + '  - write_todos' },
             ],
             required: false,
         });
         handleCancel(advancedTools);
-        finalTools = advancedTools;
+        finalTools = advancedTools as string[];
     } else if (choices.includes('all')) {
-        // If they chose All Tools, grab everything from our mapping
-        finalTools = [...TOOL_GROUPS.read, ...TOOL_GROUPS.edit, ...TOOL_GROUPS.exec, ...TOOL_GROUPS.mcp, ...TOOL_GROUPS.other];
+        finalTools = [...TOOL_GROUPS.read, ...TOOL_GROUPS.edit, ...TOOL_GROUPS.exec, ...TOOL_GROUPS.other];
     } else {
-        // Map the specific categories they checked to the underlying tools
         if (choices.includes('read')) finalTools.push(...TOOL_GROUPS.read);
         if (choices.includes('edit')) finalTools.push(...TOOL_GROUPS.edit);
         if (choices.includes('exec')) finalTools.push(...TOOL_GROUPS.exec);
-        if (choices.includes('mcp')) finalTools.push(...TOOL_GROUPS.mcp);
         if (choices.includes('other')) finalTools.push(...TOOL_GROUPS.other);
     }
 
-    // Remove duplicates just in case
     finalTools = [...new Set(finalTools)];
 
     // STEP 4: MODEL
@@ -199,7 +182,7 @@ async function main() {
     });
     handleCancel(targetModel);
 
-    // --- ASSEMBLE THE FILE CONTENT FOR PREVIEW ---
+    // --- ASSEMBLE PREVIEW ---
     let frontmatter = `---
 name: ${agentData.name}
 description: ${agentData.description}
@@ -214,10 +197,11 @@ model: ${targetModel}
     
     const fullFileContent = frontmatter + agentData.system_prompt;
 
-    // --- STEP 5: THE PREVIEW BOX ---
-    note(color.dim(fullFileContent), 'Agent Preview (.md file)');
+    // RESPONSIVE PREVIEW (Native Console Log)
+    console.log('\n' + color.cyan('--- Agent Preview (.md file) ---'));
+    console.log(color.dim(fullFileContent));
+    console.log(color.cyan('--------------------------------\n'));
 
-    // --- STEP 6: FINAL CONFIRMATION ---
     const confirm = await select({
         message: 'How would you like to proceed?',
         options: [
