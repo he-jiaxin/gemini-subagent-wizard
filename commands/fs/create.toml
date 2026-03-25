@@ -1,0 +1,4 @@
+description = "Launch the interactive subagent creator wizard"
+
+# To run a shell command, it must be inside the prompt field using !{ }
+prompt = "!{ node ${extensionPath}/dist/index.js }"
