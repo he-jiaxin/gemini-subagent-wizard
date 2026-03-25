@@ -86,11 +86,8 @@ Use the security-auditor agent to review the auth module for vulnerabilities.
 
 Gemini delegates to your new subagent, which scans the files and returns its findings.
 
----
-
 You now have a reusable specialist agent scoped exactly where you need it.
 
----
 
 ## Installation
 
