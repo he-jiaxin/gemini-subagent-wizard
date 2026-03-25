@@ -1,0 +1,22 @@
+{
+  "name": "gemini-subagent-wizard",
+  "version": "1.8.0",
+  "description": "Native TUI for managing Gemini subagents",
+  "author": "Jiaxin He",
+  "contextFileName": "GEMINI.md",
+  "commands": [
+    {
+      "name": "create",
+      "description": "Launch the interactive subagent wizard",
+      "command": "node ${extensionPath}/dist/index.js"
+    }
+  ],
+  "settings": [
+    {
+      "name": "Enable Subagents",
+      "description": "Automatically enable experimental subagent features",
+      "envVar": "GEMINI_ENABLE_AGENTS",
+      "default": "true"
+    }
+  ]
+}
