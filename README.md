@@ -1,4 +1,4 @@
-# Gemini Subagent Wizard
+# Gemini CLI Subagent Wizard
 
 **The fastest way to build, configure, and deploy specialist agents for the Gemini CLI.**
 
@@ -90,3 +90,5 @@ If you want to contribute or build from source:
 ## License
 ISC © 2026
 
+
+Would you like me to help you draft a **`CHANGELOG.md`** for this version 1.8 release, or are you all set to push these final updates?
