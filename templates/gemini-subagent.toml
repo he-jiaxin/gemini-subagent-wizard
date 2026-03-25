@@ -1,6 +1,0 @@
-# ~/.gemini/commands/gemini-subagent.toml
-description = "Launch the interactive subagent creator wizard"
-
-# We use the 'command' key for local-only interactive tools.
-# We add -y to npx to skip the "Do you want to install?" prompt.
-command = "npx -y gemini-subagent"
