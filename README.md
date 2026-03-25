@@ -2,6 +2,8 @@
 
 **The fastest way to build, configure, and deploy specialist agents for the Gemini CLI.**
 
+Inspired by the subagent creation experience in Claude, this tool brings the same concept to the **Gemini CLI** — letting you spin up specialist agents with a guided workflow instead of hand-editing config files.
+
 Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** provides a beautiful, interactive TUI (Terminal User Interface) to draft complex agent personas using Gemini itself, select whitelisted tools, and save them exactly where the Gemini CLI expects to find them.
 
 ## Key Features
@@ -88,9 +90,3 @@ If you want to contribute or build from source:
 ## License
 ISC © 2026
 
----
-
-### Pro-Tip for your GitHub Repo:
-Since you've already posted it to a repo, make sure to add a **"Usage"** GIF or a screenshot of the TUI in action to the top of the README. It makes a huge difference for people discovering your project!
-
-Would you like me to help you draft a **`CHANGELOG.md`** for this version 1.8 release, or are you all set to push these final updates?
