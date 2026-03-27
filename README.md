@@ -24,7 +24,7 @@ Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** 
 Inside any Gemini CLI session, run:
 
 ```
-/gemini-subagent-wizard:create
+/subagent:create
 ```
 
 ### 2. Choose a scope
@@ -99,18 +99,6 @@ Gemini delegates to your new subagent, which scans the files and returns its fin
 
 You now have a reusable specialist agent scoped exactly where you need it.
 
-
-## Installation
-
-This tool is available as a native **Gemini CLI Extension** on the official Gemini extension marketplace.
-
-Search for **subagent** in the marketplace and install it directly — no cloning or manual setup required.
-
-Once installed, use it inside any Gemini CLI session:
-
-```
-/subagent:create
-```
 
 The wizard will launch and walk you through creating your subagent. After saving, run `/agents refresh` to load it immediately.
 
