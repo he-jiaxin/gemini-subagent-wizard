@@ -1,0 +1,5 @@
+# Save this to ~/.gemini/commands/gemini-subagent.toml
+description = "Launch the interactive subagent creator wizard"
+
+# This must match the key you put in the "bin" section of package.json
+prompt = "!{ npx gemini-subagent }"
