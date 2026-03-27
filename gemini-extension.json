@@ -1,14 +1,7 @@
 {
   "name": "subagent",
-  "version": "1.9.1",
-  "description": "Native TUI for managing Gemini subagents",
+  "version": "1.9.2",
+  "description": "Interactive TUI for creating Gemini CLI subagents",
   "author": "Jiaxin He",
-  "contextFileName": "GEMINI.md",
-  "settings": [
-    {
-      "name": "Enable Subagents",
-      "envVar": "GEMINI_ENABLE_AGENTS",
-      "default": "true"
-    }
-  ]
+  "contextFileName": "GEMINI.md"
 }

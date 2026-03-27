@@ -10,10 +10,10 @@ import { execFile } from "child_process";
 import { promisify } from "util";
 var execFileAsync = promisify(execFile);
 var TOOL_GROUPS = {
-  read: ["read_file", "glob", "grep_search"],
-  edit: ["write_file"],
+  read: ["read_file", "glob", "grep_search", "list_directory"],
+  edit: ["write_file", "replace"],
   exec: ["run_shell_command"],
-  other: ["google_web_search"]
+  other: ["google_web_search", "web_fetch", "save_memory", "ask_user", "codebase_investigator"]
 };
 function checkGeminiSettings() {
   var _a;
@@ -68,7 +68,7 @@ function handleCancel(value) {
 }
 async function main() {
   console.clear();
-  intro(`${color.bgCyan(color.black(" Gemini Subagent Wizard "))} ${color.dim("v1.8")}`);
+  intro(`${color.bgCyan(color.black(" Gemini Subagent Wizard "))} ${color.dim("v1.9.1")}`);
   checkGeminiSettings();
   const scope = await select({
     message: "Create new agent\n" + color.dim("Select agent scope"),
@@ -149,9 +149,15 @@ async function main() {
         { value: "read_file", label: color.cyan("Read") + "  - read_file" },
         { value: "glob", label: color.cyan("Read") + "  - glob" },
         { value: "grep_search", label: color.cyan("Read") + "  - grep_search" },
+        { value: "list_directory", label: color.cyan("Read") + "  - list_directory" },
         { value: "write_file", label: color.yellow("Edit") + "  - write_file" },
+        { value: "replace", label: color.yellow("Edit") + "  - replace" },
         { value: "run_shell_command", label: color.red("Exec") + "  - run_shell_command" },
-        { value: "google_web_search", label: color.blue("Web ") + "  - google_web_search" }
+        { value: "google_web_search", label: color.blue("Web ") + "  - google_web_search" },
+        { value: "web_fetch", label: color.blue("Web ") + "  - web_fetch" },
+        { value: "save_memory", label: color.magenta("Mem ") + "  - save_memory" },
+        { value: "ask_user", label: color.magenta("User") + "  - ask_user" },
+        { value: "codebase_investigator", label: color.green("Sys ") + "  - codebase_investigator" }
       ],
       required: false
     });
@@ -170,8 +176,9 @@ async function main() {
     message: "Create new agent\n" + color.dim("Select model"),
     options: [
       { value: "inherit", label: "1. Inherit (Use main conversation model)" },
-      { value: "gemini-2.5-flash", label: "2. Gemini 2.5 Flash (Fast tasks)" },
-      { value: "gemini-2.5-pro", label: "3. Gemini 2.5 Pro (Complex analysis)" }
+      { value: "gemini-2.0-flash", label: "2. Gemini 2.0 Flash (Balanced)" },
+      { value: "gemini-2.5-flash", label: "3. Gemini 2.5 Flash (Fast tasks)" },
+      { value: "gemini-2.5-pro", label: "4. Gemini 2.5 Pro (Complex analysis)" }
     ]
   });
   handleCancel(targetModel);

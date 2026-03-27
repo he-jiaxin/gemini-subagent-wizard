@@ -1,6 +1,0 @@
-description = "Launch the interactive subagent creator wizard"
-
-# Use the !{ } syntax for a raw terminal pass-through.
-# This tells the CLI: "Run this NOW. Do not let the AI think about it."
-# Using $EXTENSION_PATH ensures the script is found regardless of the current working directory.
-prompt = "!{ node \"$EXTENSION_PATH/dist/index.js\" }"

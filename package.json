@@ -12,14 +12,14 @@
     "prepublishOnly": "npm run build"
   },
   "description": "An interactive subagent creator for the Gemini CLI",
-  "dependencies": {
-    "@clack/prompts": "^1.1.0",
-    "picocolors": "^1.1.1"
-  },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "tsup": "^8.0.0",
     "tsx": "^4.21.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.1.0",
+    "picocolors": "^1.1.1"
   }
 }
