@@ -140,7 +140,7 @@ The extension registers a `create` command that the AI can invoke. The `GEMINI.m
 To build from source:
 
 ```bash
-git clone https://github.com/your-username/gemini-subagent-wizard.git
+git clone https://github.com/he-jiaxin/gemini-subagent-wizard.git
 cd gemini-subagent-wizard
 npm install
 npm run build
