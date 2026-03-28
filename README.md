@@ -1,10 +1,10 @@
-# Gemini CLI Subagent Wizard
+# Gemini Subagent Wizard
 
-**The fastest way to build, configure, and deploy specialist agents for the Gemini CLI.**
+**An interactive TUI for creating and managing specialist subagents in the Gemini CLI.**
 
 Inspired by the subagent creation experience in Claude, this tool brings the same concept to the **Gemini CLI** — letting you spin up specialist agents with a guided workflow instead of hand-editing config files.
 
-Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** provides a beautiful, interactive TUI (Terminal User Interface) to draft complex agent personas using Gemini itself, select whitelisted tools, and save them exactly where the Gemini CLI expects to find them.
+Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** provides a beautiful, interactive TUI to draft complex agent personas using Gemini itself, select whitelisted tools, and save them exactly where the Gemini CLI expects to find them.
 
 ## Key Features
 
@@ -18,74 +18,55 @@ Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** 
 
 ## Installation
 
-You don't even need to install it to start using it! Run the wizard instantly via `npx`:
+This tool is available as a native **Gemini CLI Extension** on the official Gemini extension marketplace.
 
-```bash
-npx gemini-subagent
+Search for **gemini-subagent-wizard** in the marketplace and install it directly — no cloning or manual setup required.
+
+Once installed, use it inside any Gemini CLI session:
+
+```
+/gemini-subagent-wizard:create
 ```
 
-Or install it globally for frequent use:
-
-```bash
-npm install -g gemini-subagent
-```
+The wizard will launch inline and walk you through creating your subagent. After saving, run `/agents refresh` to load it immediately.
 
 ---
 
-## Usage
+## How It Works
 
-### 1. Standalone Mode
-Run the wizard from any terminal to prep your agents before starting a Gemini session:
-```bash
-gemini-subagent
-```
-
-### 2. Inside the Gemini CLI (Native Shell Escape)
-You can trigger the wizard without leaving your active chat session. Type this directly into the Gemini prompt:
-```bash
-> !npx gemini-subagent
-```
-*After saving, run `/agents refresh` to load your new specialist immediately.*
-
-### 3. As a Slash Command
-To make it a permanent part of your Gemini CLI menu:
-1.  Copy `templates/gemini-subagent.toml` from this repo to `~/.gemini/commands/`.
-2.  Inside Gemini, run `/commands reload`.
-3.  Type `/gemini-subagent` to launch the wizard.
-
----
-
-## Development
-
-If you want to contribute or build from source:
-
-1.  **Clone & Install:**
-    ```bash
-    git clone https://github.com/your-username/gemini-agent-wizard.git
-    cd gemini-agent-wizard
-    npm install
-    ```
-2.  **Build:**
-    ```bash
-    npm run build
-    ```
-3.  **Local Link:**
-    ```bash
-    npm link --force
-    ```
+The extension registers a `create` command that runs the interactive wizard. The `GEMINI.md` context file also lets Gemini proactively suggest the wizard whenever you mention creating a specialist or setting up a subagent.
 
 ---
 
 ## Prerequisites
 
-* **Node.js** v18+ 
-* **Gemini CLI** (`npm install -g @google/genai-cli`)
+* **Gemini CLI** installed and authenticated
 * **Subagents Enabled:** Ensure your `~/.gemini/settings.json` contains:
     ```json
     "experimental": {
       "enableAgents": true
     }
     ```
+  The wizard will warn you if this isn't set.
+
+---
+
+## Development
+
+To build from source:
+
+```bash
+git clone https://github.com/he-jiaxin/gemini-subagent-wizard.git
+cd gemini-subagent-wizard
+npm install
+npm run build
+```
+
+Run directly without building:
+
+```bash
+npm run dev
+```
 
 ## License
 ISC © 2026
