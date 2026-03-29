@@ -84,7 +84,7 @@ function handleCancel<T>(value: T | symbol | undefined): asserts value is T {
 
 async function main() {
     console.clear();
-    intro(`${color.bgCyan(color.black(' Gemini Subagent Wizard '))} ${color.dim('v1.9.1')}`);
+    intro(`${color.bgCyan(color.black(' Gemini Subagent Wizard '))} ${color.dim('v1.9.2')}`);
 
     // RUN SAFETY CHECK
     checkGeminiSettings();

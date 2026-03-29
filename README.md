@@ -16,8 +16,14 @@ Writing YAML frontmatter by hand is error-prone. The **Gemini Subagent Wizard** 
 
 ---
 
+## Install the extension
+
+```bash
+git clone https://github.com/he-jiaxin/gemini-subagent-wizard.git
+```
 
 ## Quickstart: create your first subagent
+
 
 ### 1. Open the wizard
 
@@ -104,17 +110,6 @@ The wizard will launch and walk you through creating your subagent. After saving
 
 ---
 
-## Alternative: Direct Command (No AI Thinking)
-
-If you prefer instant execution without AI processing, copy the command template to your global commands:
-
-```bash
-cp templates/subagent.toml ~/.gemini/commands/
-```
-
-Then use `/subagent` for immediate execution.
-
----
 
 ## How It Works
 
@@ -140,8 +135,6 @@ The extension registers a `create` command that the AI can invoke. The `GEMINI.m
 To build from source:
 
 ```bash
-git clone https://github.com/he-jiaxin/gemini-subagent-wizard.git
-cd gemini-subagent-wizard
 npm install
 npm run build
 gemini extensions link .

@@ -1146,7 +1146,7 @@ function handleCancel(value) {
 }
 async function main() {
   console.clear();
-  Wt2(`${import_picocolors.default.bgCyan(import_picocolors.default.black(" Gemini Subagent Wizard "))} ${import_picocolors.default.dim("v1.9.1")}`);
+  Wt2(`${import_picocolors.default.bgCyan(import_picocolors.default.black(" Gemini Subagent Wizard "))} ${import_picocolors.default.dim("v1.9.2")}`);
   checkGeminiSettings();
   const scope = await Jt({
     message: "Create new agent\n" + import_picocolors.default.dim("Select agent scope"),
