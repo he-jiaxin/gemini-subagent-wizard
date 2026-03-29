@@ -1,6 +1,6 @@
 {
-  "name": "gemini-subagent-wizard",
-  "version": "1.9.0",
+  "name": "subagent",
+  "version": "1.9.1",
   "description": "Native TUI for managing Gemini subagents",
   "author": "Jiaxin He",
   "contextFileName": "GEMINI.md",

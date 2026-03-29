@@ -1,6 +1,6 @@
 # Gemini Subagent Wizard
 
-Subagents are defined as Markdown files with YAML frontmatter. You can create them manually or use the `/gemini-subagent-wizard:create` command.
+Subagents are defined as Markdown files with YAML frontmatter. You can create them manually or use the `/subagent:create` command.
 
 This walkthrough guides you through creating a subagent using the interactive wizard. The wizard handles frontmatter generation, tool selection, and file placement automatically.
 
@@ -13,7 +13,7 @@ This walkthrough guides you through creating a subagent using the interactive wi
 Inside any Gemini CLI session, run:
 
 ```
-/gemini-subagent-wizard:create
+/subagent:create
 ```
 
 ### 2. Choose a scope
